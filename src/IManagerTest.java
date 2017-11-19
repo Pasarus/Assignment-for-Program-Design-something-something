@@ -19,17 +19,17 @@ import static org.junit.Assert.*;
  */
 public class IManagerTest {
     IManager manager;
-    
+
     public IManagerTest() {
     }
-    
-    
-    
+
+
+
     @Before
     public void setUp() {
         manager = new DoubleElimSrj12();
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -46,11 +46,11 @@ public class IManagerTest {
         players.add("C");
         players.add("D");
         players.add("E");
-        
-        
+
+
         manager.setPlayers(players);
         assertTrue(manager.hasNextMatch());
-        
+
     }
 
     /**
@@ -62,13 +62,13 @@ public class IManagerTest {
         ArrayList<String> players = new ArrayList<>();
         players.add("A");
         players.add("B");
-        
-        
+
+
         manager.setPlayers(players);
         assertTrue(manager.hasNextMatch());
         Match m = manager.nextMatch();  // A vs B
         manager.setMatchWinner(true); // WQ: A, LQ: B
-        assertTrue(manager.hasNextMatch()); 
+        assertTrue(manager.hasNextMatch());
         m = manager.nextMatch(); // A vs B
         manager.setMatchWinner(true); // Winner A
         assertFalse(manager.hasNextMatch());
@@ -84,7 +84,7 @@ public class IManagerTest {
         players.add("A");
         players.add("B");
         players.add("C");
-        
+
         manager.setPlayers(players);
         assertTrue(manager.hasNextMatch());
         Match m = manager.nextMatch();
@@ -111,9 +111,9 @@ public class IManagerTest {
         assertEquals(winner, "C");
     }
 
-    
 
-    
+
+
 
     /**
      * Test of undo method, of class IManager.
@@ -125,7 +125,7 @@ public class IManagerTest {
         players.add("A");
         players.add("B");
         players.add("C");
-        
+
         manager.setPlayers(players);
         assertFalse(manager.canUndo());
         Match m = manager.nextMatch();
@@ -170,7 +170,7 @@ public class IManagerTest {
         players.add("A");
         players.add("B");
         players.add("C");
-        
+
         manager.setPlayers(players); //WQ: A,B, C ; LQ:
         Match m = manager.nextMatch(); //A, B
         assertFalse(manager.canRedo());
@@ -217,7 +217,7 @@ public class IManagerTest {
         assertFalse(manager.canRedo());
     }
 
-    
+
 
     /**
      * Test with a set of random competitions.
@@ -226,18 +226,18 @@ public class IManagerTest {
     public void testRandomCompetions() {
         System.out.println("random competition");
         Random rand = new Random();
-        
+
         int count = 2;
         for (int k = 0; k < 10; k++) {
             ArrayList<String> players = new ArrayList<>();
-            
+
             for (int i = 0; i < count; i++) {
                 players.add("" + i);
             }
             int targetWinner = rand.nextInt(players.size());
             String targetWinnerStr = "" + targetWinner;
             manager.setPlayers(players);
-            
+
             while (manager.hasNextMatch()) {
                 Match m = manager.nextMatch();
                 String p1 = m.getPlayer1();
@@ -255,6 +255,6 @@ public class IManagerTest {
             count*=2;
         }
     }
-   
-    
+
+
 }
